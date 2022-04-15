@@ -36,23 +36,25 @@ app.get('/api/posts/:tag', (req, res) => {
     });
 });
 
+app.get('/api/posts/:tag/:sortBy', (req, res) => {
+    const { tag , sortBy } = req.params;
+    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}`, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        } else
+            console.log(error);
+    });
+});
 
-
-// trying to see if I can get post by ID
-
-// app.get('/api/:id', (req, res) => {
-//     const { id } = req.params;
-
-//     request('https://api.hatchways.io/assessment/blog/posts?:id', function (error, response, body) {
-
-//         const posts = posts.filter((post) => post.id)[0];
-//         if (!error && response.statusCode == 200) {
-//             res.send(body);
-//         } else
-//             console.log(response.statusCode, error);
-//     });
-// });
-
+app.get('/api/posts/:tag/:direction', (req, res) => {
+    const { tag , direction } = req.params;
+    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        } else
+            console.log(error);
+    });
+});
 
 
 // these are possible routes we will use in the future
