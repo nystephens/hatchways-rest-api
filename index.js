@@ -26,6 +26,7 @@ app.get('/api/ping', (req, res) => {
     });
 });
 
+
 app.get('/api/posts/:tag', (req, res) => {
     const { tag } = req.params;
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
@@ -36,8 +37,23 @@ app.get('/api/posts/:tag', (req, res) => {
     });
 });
 
+// TRY TO GET MULTIPLE TAGS (PERHAPS USING res.json like above?  see /ping)
+app.get('/api/posts/:tags', (req, res) => {
+    const { tags } = req.params;
+    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tags}`, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        } else
+            console.log(error);
+    });
+});
+
+
+// TRYING TO GET MULTIPLE PARAMETERS WORKING BUT IT SEEMS TO ONLY BE ACCEPTING FIRST PARAM
 app.get('/api/posts/:tag/:sortBy', (req, res) => {
-    const { tag , sortBy } = req.params;
+    const tag = req.params.tag;
+    const sortBy= req.params.sortBy;
+    
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body)
@@ -47,7 +63,10 @@ app.get('/api/posts/:tag/:sortBy', (req, res) => {
 });
 
 app.get('/api/posts/:tag/:direction', (req, res) => {
-    const { tag , direction } = req.params;
+    const tag= req.params.tag;
+    const direction= req.params.direction;
+    console.log(direction)
+
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body)
@@ -56,12 +75,8 @@ app.get('/api/posts/:tag/:direction', (req, res) => {
     });
 });
 
+// app.use('/', require('./routes/tags'));
 
-// these are possible routes we will use in the future
-
-// app.use('/', require('./routes/tag'));
-// app.use('/', require('./routes/ping'));
-// app.use('/', require('./routes/posts'));
 
 
 app.listen(port, () => {
