@@ -1,0 +1,22 @@
+{
+  "name": "hatchways-rest-api",
+  "version": "1.0.0",
+  "description": "A REST API that I have created to showcase my skills with Node and Express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nystephens/hatchways-rest-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nystephens/hatchways-rest-api/issues"
+  },
+  "homepage": "https://github.com/nystephens/hatchways-rest-api#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
