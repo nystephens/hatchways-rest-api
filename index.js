@@ -1,5 +1,6 @@
 const express = require('express');
-const bodyParser =require('body-parser');
+const bodyParser = require('body-parser');
+var request = require('request');
 
 // here is where we set up our express server connection to the local port
 const app = express();
@@ -14,12 +15,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/posts', (req, res) => {
-    res.json({ ok: true, posts });
+    request('https://api.hatchways.io/assessment/blog/posts?tag=tech', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        } else 
+        
+        console.log(error);
+    });
+
 });
 
-app.get('/api/ping', (req, res) => {
-    res.json({ ok: true, ping });
-});
+// app.get('/api/ping', (req, res) => {
+//     // console.log(res);
+//     // res.json({ ok: true, ping });
+// });
 
 
 

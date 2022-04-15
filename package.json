@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nystephens/hatchways-rest-api#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "request": "^2.88.2"
   }
 }
