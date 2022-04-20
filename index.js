@@ -22,7 +22,7 @@ app.get('/api/ping', (req, res) => {
             console.log(response.statusCode);
             res.json({ "success": true, "Response Status Code": response.statusCode });
         } else
-            console.log(response.statusCode, error);
+            console.log(error);
     });
 });
 
@@ -31,11 +31,31 @@ app.get('/api/posts/:tag', (req, res) => {
     const { tag } = req.params;
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            res.send(body)
+
+            // returns raw response data
+            res.send(body);
+
+            // returns undefined..
+            // var postsObj = body
+            // var posts = postsObj.posts
+            // console.log(posts);
+
+            // returns all characters individually within an array..
+            // const dataObject = response.body;
+            // const valuesOnly = Object.values(dataObject);
+            // console.log(valuesOnly);
+
+            // returns an object around body object so the opposite of what we want..
+            // let unwrap = ({ posts }) => ({ posts });
+            // let picked = unwrap({ posts});
+            // console.log(picked)
         } else
             console.log(error);
     });
 });
+
+
+
 
 // TRY TO GET MULTIPLE TAGS (PERHAPS USING res.json like above?  see /ping)
 app.get('/api/posts/:tags', (req, res) => {
@@ -52,8 +72,8 @@ app.get('/api/posts/:tags', (req, res) => {
 // TRYING TO GET MULTIPLE PARAMETERS WORKING BUT IT SEEMS TO ONLY BE ACCEPTING FIRST PARAM
 app.get('/api/posts/:tag/:sortBy', (req, res) => {
     const tag = req.params.tag;
-    const sortBy= req.params.sortBy;
-    
+    const sortBy = req.params.sortBy;
+
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             res.send(body)
@@ -63,8 +83,8 @@ app.get('/api/posts/:tag/:sortBy', (req, res) => {
 });
 
 app.get('/api/posts/:tag/:direction', (req, res) => {
-    const tag= req.params.tag;
-    const direction= req.params.direction;
+    const tag = req.params.tag;
+    const direction = req.params.direction;
     console.log(direction)
 
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
