@@ -31,24 +31,9 @@ app.get('/api/posts/:tag', (req, res) => {
     const { tag } = req.params;
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-
             // returns raw response data
-            res.send(body);
-
-            // returns undefined..
-            // var postsObj = body
-            // var posts = postsObj.posts
-            // console.log(posts);
-
-            // returns all characters individually within an array..
-            // const dataObject = response.body;
-            // const valuesOnly = Object.values(dataObject);
-            // console.log(valuesOnly);
-
-            // returns an object around body object so the opposite of what we want..
-            // let unwrap = ({ posts }) => ({ posts });
-            // let picked = unwrap({ posts});
-            // console.log(picked)
+            let data = JSON.parse(body);
+            res.send(data.posts);
         } else
             console.log(error);
     });
