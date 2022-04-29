@@ -27,16 +27,64 @@ app.get('/api/ping', (req, res) => {
 });
 
 
+// ACTUAL SINGLE TAG ENDPOINT
+// app.get('/api/posts/:tag', (req, res) => {
+//     const { tag } = req.params;
+//     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             // returns raw response data
+//             let data = JSON.parse(body);
+//             res.send(data.posts);
+//         } else
+//             console.log(error);      
+//     });
+// });
+
+
+// TESTING SORT METHOD
 app.get('/api/posts/:tag', (req, res) => {
-    const { tag } = req.params;
-    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // returns raw response data
-            let data = JSON.parse(body);
-            res.send(data.posts);
-        } else
-            console.log(error);
+    let arr = [
+        {
+            firstName: "Steve",
+            lastName: "Hancock",
+            score: 90
+        },
+        {
+            firstName: "Lynette",
+            lastName: "Jorgenson",
+            score: 100
+        },
+        {
+            firstName: "Andrew",
+            lastName: "Wilson",
+            score: 71
+        },
+        {
+            firstName: "Annika",
+            lastName: "Turner",
+            score: 82
+        }
+    ];
+
+    // sort by lastname
+    // arr.sort(function(a, b) {
+    //     if (a.lastName.toLowerCase() < b.lastName.toLowerCase()) 
+    //     return -1;
+
+    //     if (a.lastName.toLowerCase() > b.lastName.toLowerCase()) 
+    //     return 1;
+
+    //     if (a.lastName.toLowerCase() = b.lastName.toLowerCase()) 
+    //     return 0;
+    // });
+
+
+    // sort by score
+    arr.sort(function(a, b) {
+        return a.score - b.score;
     });
+
+    res.send(arr);
 });
 
 
@@ -44,13 +92,26 @@ app.get('/api/posts/:tag', (req, res) => {
 
 // TRY TO GET MULTIPLE TAGS (PERHAPS USING res.json like above?  see /ping)
 app.get('/api/posts/:tags', (req, res) => {
-    const { tags } = req.params;
-    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tags}`, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.send(body)
-        } else
-            console.log(error);
-    });
+    const { tag } = req.params;
+
+    // collect all tag params into an array
+    var tags = [tag];
+
+    // for each tag in the tags array do a search for that data
+    const searchTags = function (tags) {
+        console.log(tags)
+    }
+
+    searchTags(tags);
+
+    // request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}`, function (error, response, body) {
+    //     if (!error && response.statusCode == 200) {
+    //         // returns raw response data
+    //         let data = JSON.parse(body);
+    //         res.send(data.posts);
+    //     } else
+    //         console.log(error);
+    // });
 });
 
 
@@ -61,7 +122,9 @@ app.get('/api/posts/:tag/:sortBy', (req, res) => {
 
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            res.send(body)
+            // returns raw response data
+            let data = JSON.parse(body);
+            res.send(data.posts);
         } else
             console.log(error);
     });
@@ -74,7 +137,9 @@ app.get('/api/posts/:tag/:direction', (req, res) => {
 
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            res.send(body)
+            // returns raw response data
+            let data = JSON.parse(body);
+            res.send(data.posts);
         } else
             console.log(error);
     });
