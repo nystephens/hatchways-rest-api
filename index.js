@@ -71,7 +71,7 @@ app.get('/api/posts/:tags', (req, res) => {
 app.get('/api/posts/:tag/:sortBy', (req, res) => {
     const tag = req.params.tag;
     const sortBy = req.params.sortBy;
-
+ 
     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // returns raw response data
@@ -110,30 +110,88 @@ app.get('/api/posts/:tag/:sortBy', (req, res) => {
                             dataArr.sort(function (a, b) {
                                 return a.popularity - b.popularity;
                             });
-
                             res.send(dataArr);
                         }
-
         } else
             console.log(error);
     });
 });
 
 // direction endpoint
-app.get('/api/posts/:tag/:direction', (req, res) => {
-    const tag = req.params.tag;
-    const direction = req.params.direction;
-    console.log(direction)
+// app.get('/api/posts/:tag/:direction', (req, res) => {
+//     const tag = req.params.tag;
+//     const direction = req.params.direction;
 
-    request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // returns raw response data
-            let data = JSON.parse(body);
-            res.send(data.posts);
-        } else
-            console.log(error);
-    });
-});
+//     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&direction=${direction}`, function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             // returns raw response data
+//             let data = JSON.parse(body);
+//             let dataArr = data.posts;
+
+//             if (direction === "desc") {
+//                 let descData = dataArr.reverse();
+//                 res.send(descData);
+//             }
+//         } else
+//             console.log(error);
+//     });
+// });
+
+// trying to use the direction as a third endpoint
+// app.get('/api/posts/:tag/:sortBy/:direction', (req, res) => {
+//     const tag = req.params.tag;
+//     const sortBy = req.params.sortBy;
+//     const direction = req.params.direction;
+
+//     request(`https://api.hatchways.io/assessment/blog/posts?tag=${tag}&sortBy=${sortBy}&direction=${direction}`, function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             // returns raw response data
+//             let data = JSON.parse(body);
+//             let dataArr = data.posts;
+
+//             // sort by id
+//             if (sortBy === "id") {
+//                 dataArr.sort(function (a, b) {
+//                     return a.id - b.id;
+//                 });
+
+//                 res.send(dataArr);
+//             } else
+
+//                 // sort by reads
+//                 if (sortBy === "reads") {
+//                     dataArr.sort(function (a, b) {
+//                         return a.reads - b.reads;
+//                     });
+
+//                     res.send(dataArr);
+//                 } else
+
+//                     // sort by likes
+//                     if (sortBy === "likes") {
+//                         dataArr.sort(function (a, b) {
+//                             return a.likes - b.likes;
+//                         });
+
+//                         res.send(dataArr);
+//                     } else
+
+//                         // sort by popularity
+//                         if (sortBy === "popularity") {
+//                             dataArr.sort(function (a, b) {
+//                                 return a.popularity - b.popularity;
+//                             });
+//                             res.send(dataArr);
+//                         }
+//             if (direction === "desc") {
+//                 let descData = dataArr.reverse();
+//                 res.send(descData);
+//             } 
+
+//         } else
+//             console.log(error);
+//     });
+// });
 
 
 
